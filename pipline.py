@@ -44,14 +44,15 @@ emotion_map = {
         'confused': ['confused', ':thinking_face:', ':confused_face:', ':hushed:'],
         'excited': ['excited', ':star_struck:', ':partying_face:', ':tada:'],
         'surprised': ['surprised', ':open_mouth:', ':astonished:'],
-    }
+}
+
 def replace_slang(tokens):
     return [slang_replacements.get(token, token) for token in tokens]
 
 def correct_spelling(words):
     corrected = []
     for word in words:
-        # Only correct if word is alphabetic and not slang or special tokens
+        # correct if word is alphabetic
         if word.isalpha() and word not in slang_replacements:
             corrected_word = spell.correction(word)
             corrected.append(corrected_word)
@@ -64,6 +65,7 @@ def detect_shouting(text):
     return len(shouting_words) > 0
 
 def detect_emotions(original_text, demojized_text):
+
     detected = set()
     orig_lower = original_text.lower()
     demo_lower = demojized_text.lower()
@@ -146,7 +148,6 @@ if __name__ == "__main__":
         "I'm so happy with my order! 😊😊",
         "Feeling sad and desappointed... 😞",
         "What??? WHY IS MY ORDER LATE???",
-        "This is so frustrating!!! 😤😤",
         "LOL that was funny tooooooooooooooo 😂😂",
     ]
 
@@ -155,4 +156,4 @@ if __name__ == "__main__":
     for msg in test_messages:
         print(f"Original: {msg}")
         print(f"Cleaned: {preprocess_text(msg)}")
-        print("-^-" * 10)
+        print("-^-" * 50)
